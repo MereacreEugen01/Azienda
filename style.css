@@ -1,0 +1,26 @@
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    padding: 40px;
+    text-align:center;
+    box-align:center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    
+
+}
+input{
+    margin: 10px 0;
+}
+body {
+    background-color: cornsilk;
+}
+
+#tabella{
+    background-color: aliceblue;
+    border: 0%;
+}
+

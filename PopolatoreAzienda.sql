@@ -14,16 +14,15 @@ insert into dipartimenti VALUES
 ('dp5', 'Pubblicità', 'Livorno', 'LI');
 
 insert into personale values 
-('00000', 'dp1', 'Mario Rossi', '1966-12-12', 'Meccanico', 1200.0),
-('00001', 'dp1', 'Mario Verdi', '1970-10-30', 'Meccanico', 1300.0),
-('00002', 'dp2', 'Luca Meoni', '1980-04-15', 'Perito Tecnico', 1500.0),
-('00003', 'dp3', 'Pino Neri', '1975-09-17', 'Venditore', 1400.0),
-('00005', 'dp5', 'Dario Lampa', '1971-04-25', 'Pubblicità', 1600.0),
-('00004', 'dp4', 'Simone Termo', '1990-03-22', 'Verniciatore', 1300.0);
+('00000', 'dp1', 'Mario Rossi', '1966-12-12', 'Q1', 1200.0),
+('00001', 'dp1', 'Mario Verdi', '1970-10-30', 'Q1', 1300.0),
+('00002', 'dp2', 'Luca Meoni', '1980-04-15', 'Q2', 1500.0),
+('00003', 'dp3', 'Pino Neri', '1975-09-17', 'Q3', 1400.0),
+('00005', 'dp5', 'Dario Lampa', '1971-04-25', 'Q4', 1600.0),
+('00004', 'dp4', 'Simone Termo', '1990-03-22', 'Q5', 1300.0);
 
 
 insert into prodotti VALUES
-('p000', 'dp1', 'forcella', 50.0),
 ('p001', 'dp1', 'manubrio', 20.0),
 ('p002', 'dp2', 'sella', 10.0),
 ('p003', 'dp3', 'ruota', 30.0),
@@ -31,12 +30,6 @@ insert into prodotti VALUES
 ('p005', 'dp5', 'porta', 15.0);
 
 insert into composizione values
-('p000', 'c001', 5.0),
-('p000', 'c002', 3.0),
-('p000', 'c003', 3.0),
-('p000', 'c004', 5.0),
-('p000', 'c005', 5.0),
-('p000', 'c006', 1.0),
 ('p001', 'c001', 4.0),
 ('p001', 'c002', 2.0),
 ('p001', 'c003', 2.0),

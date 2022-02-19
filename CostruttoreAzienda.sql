@@ -21,7 +21,7 @@ CREATE TABLE Personale(
    id_dip VARCHAR(3) NOT NULL,
    nominativo VARCHAR(50) NOT NULL,
    data_nascita DATE NOT NULL,
-   qualifica VARCHAR(20) NOT NULL,
+   qualifica VARCHAR(2) NOT NULL,
    stipendio DOUBLE NOT NULL,
    CONSTRAINT ChiavePrimaria PRIMARY KEY(matricola),
    CONSTRAINT DipartimentiPersonale FOREIGN KEY(id_dip) REFERENCES Dipartimenti(id_dip)

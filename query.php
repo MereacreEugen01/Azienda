@@ -1,20 +1,21 @@
+<link rel="stylesheet" href="style.css">
 <?php
 switch ($_POST['query_scelta']) {
     case 'q1':
-        //echo "ciao hai eseguito la query 1";
+        echo "È stata eseguita la query 1";
         $connection = new mysqli("localhost","root","","azienda");
         /*
         Q1 Matricola, nominativo e stipendio degli impiegati di ogni 
         dipartimento in ordine crescente di provincia e nell’ambito 
         della provincia in ordine discendente di stipendio
         */
-        $query = " SELECT matricola, nominativo, stipendio 
+        $query = "SELECT matricola, nominativo, stipendio 
         from personale 
         join dipartimenti on personale.id_dip = dipartimenti.id_dip 
         order by (provincia) asc, (stipendio) desc";
         $result = $connection->query($query);
         if ($result->num_rows != 0) {
-            echo "<table border>";
+            echo "<table border id = \"tabella\">";
             echo "<tr>";
             echo "<th>Matricola</th>";
             echo "<th>Nominativo</th>";
@@ -31,21 +32,24 @@ switch ($_POST['query_scelta']) {
         }
         $result->free();
         $connection->close();
+        echo "È stato richiesto di sapere Matricola, nominativo e stipendio degli impiegati di ogni 
+        dipartimento in ordine crescente di provincia e nell’ambito 
+        della provincia in ordine discendente di stipendio";
         break;
     case 'q2':
-        //echo "ciao hai eseguito la query 2";
+        echo "È stata eseguita la query 2";
         $connection = new mysqli("localhost","root","","azienda");
         /*
         Q2 Il nome di tutti i prodotti che usano solo i componenti C003 e C005
         */
-        $query = "SELECT nome_prodotto
+        $query = "SELECT distinct nome_prodotto
         from Prodotti 
         join Composizione on Prodotti.id_prod = Composizione.id_prod 
         WHERE composizione.id_prod NOT IN (Select id_prod From composizione
         WHERE composizione.id_comp <> 'C003' and composizione.id_comp <> 'C005')";
         $result = $connection->query($query);
         if ($result->num_rows != 0) {
-            echo "<table border>";
+            echo "<table border id = \"tabella\">";
             echo "<tr>";
             echo "<th>Nome</th>";
 
@@ -59,9 +63,11 @@ switch ($_POST['query_scelta']) {
         }
         $result->free();
         $connection->close();
+        echo "È stato richiesto di sapere Il nome di tutti i prodotti 
+        che usano solo i componenti C003 e C005";
         break;
     case 'q3':
-        //echo "ciao hai eseguito la query 3";
+        echo "È stata eseguita la query 3";
         $connection = new mysqli("localhost","root","","azienda");
         /*
             Q3 Prezzo minimo, massimo e medio di vendita dei prodotti di ogni dipartimento
@@ -72,7 +78,7 @@ switch ($_POST['query_scelta']) {
         GROUP by (Dipartimenti.id_dip)";
         $result = $connection->query($query);
         if ($result->num_rows != 0) {
-            echo "<table border>";
+            echo "<table border id = \"tabella\">";
             echo "<tr>";
             echo "<th>ID Dipartimento</th>";
             echo "<th>Prezzo Minimo</th>";
@@ -91,21 +97,32 @@ switch ($_POST['query_scelta']) {
         }
         $result->free();
         $connection->close();
+        echo "È stato richiesto di sapere Prezzo minimo, 
+        massimo e medio di vendita dei prodotti 
+        di ogni dipartimento";
         break;
    case 'q4':
-        //echo "ciao hai eseguito la query 4";
-        $connection = new mysqli("localhost","root","","azienda");
+    echo "È stata eseguita la query 4";
+    $connection = new mysqli("localhost","root","","azienda");
         /*
         Q4 Codice, nome di ogni dipartimento e numero dei componenti utilizzati da esso
         */
         $query = "SELECT dipartimenti.id_dip as Codice, dipartimenti.nome_dipartimento as Nome_dipartimento, 
-        sum(unita_comp) as Componenti_utilizzati 
+        COUNT( DISTINCT    composizione.id_comp) AS Componenti_utilizzati
         from dipartimenti, prodotti, composizione 
         where dipartimenti.id_dip = prodotti.id_dip and prodotti.id_prod = composizione.id_prod 
         GROUP by (dipartimenti.id_dip)";
+        /*
+        SELECT dipartimenti.id_dip as Codice, nome_dipartimento, 
+        COUNT( DISTINCT    composizione.id_comp) 
+        AS N_componenti FROM dipartimenti,prodotti,composizione 
+        WHERE prodotti.id_prod = composizione.id_prod AND dipartimenti.id_dip = prodotti.id_dip 
+        GROUP BY dipartimenti.id_dip,nome_dipartimento;
+        */
+
         $result = $connection->query($query);
         if ($result->num_rows != 0) {
-            echo "<table border>";
+            echo "<table border id = \"tabella\">";
             echo "<tr>";
             echo "<th>ID Dipartimento</th>";
             echo "<th>Nome Dipartimento</th>";
@@ -122,15 +139,16 @@ switch ($_POST['query_scelta']) {
         }
         $result->free();
         $connection->close();
+        echo "È stato richiesto di sapere Codice, nome di ogni dipartimento e numero dei componenti utilizzati da esso";
         break;
     case 'q5':
-        //echo "ciao hai eseguito la query 5";
+        echo "È stata eseguita la query 5";
         $connection = new mysqli("localhost","root","","azienda");
         /*
         Q5 Codice, nome e costo unitario di produzione di ogni prodotto ( costo calcolato 
         come somma del costo unitario di ogni componente moltiplicato la quantità utilizzata del singolo prodotto)
          */
-        $query = " SELECT prodotti.id_prod as Codice, 
+        $query = "SELECT prodotti.id_prod as Codice, 
         prodotti.nome_prodotto as Nome_Prodotto, 
         sum((componenti.costo_unitario * composizione.unita_comp)) as Costo_prodotto_calcolato 
         from prodotti, composizione, componenti 
@@ -138,7 +156,7 @@ switch ($_POST['query_scelta']) {
         GROUP by (prodotti.id_prod)";
         $result = $connection->query($query);
         if ($result->num_rows != 0) {
-            echo "<table border>";
+            echo "<table border id = \"tabella\">";
             echo "<tr>";
             echo "<th>Codice Prodotto</th>";
             echo "<th>Nome Prodotto</th>";
@@ -155,9 +173,12 @@ switch ($_POST['query_scelta']) {
         }
         $result->free();
         $connection->close();
+        echo "È stato richiesto di sapere Codice, nome e costo unitario di produzione 
+        di ogni prodotto (costo calcolato come somma del costo unitario di ogni componente 
+        moltiplicato la quantità utilizzata del singolo prodotto)";
         break;
     case 'q6':
-        //echo "ciao hai eseguito la query 6";
+        echo "È stata eseguita la query 6";
         $connection = new mysqli("localhost","root","","azienda");
         /*
         Codice, nome dei prodotti che impiegano almeno 5 componenti distinti
@@ -169,7 +190,7 @@ switch ($_POST['query_scelta']) {
         HAVING COUNT(composizione.unita_comp) > 5";
         $result = $connection->query($query);
         if ($result->num_rows != 0) {
-            echo "<table border>";
+            echo "<table border id = \"tabella\">";
             echo "<tr>";
             echo "<th>Codice Prodotto</th>";
             echo "<th>Nome Prodotto</th>";
@@ -184,6 +205,8 @@ switch ($_POST['query_scelta']) {
         }
         $result->free();
         $connection->close();
+        echo "È stato richiesto di sapere Codice, nome dei prodotti che impiegano almeno 5 componenti distinti";
         break;
 }
 ?>
+</br></br><a href="http://localhost/progetti/azienda/index.php">Torna alla pagina precedene</a>
